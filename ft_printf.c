@@ -6,7 +6,7 @@
 /*   By: tpiras <tpiras@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 13:19:56 by tpiras            #+#    #+#             */
-/*   Updated: 2023/02/21 15:09:05 by tpiras           ###   ########.fr       */
+/*   Updated: 2023/02/24 14:17:19 by tpiras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,24 @@ int	ft_putchar(char c)
 
 int	check_formats(va_list args (const char format))
 {
-	int	size_print = 0;
+	int	len_print = 0;
 	if (format == 'c')
-		size_print += ft_printchar(va_arg(args, int));
+		len_print += ft_printchar(va_arg(args, int));
 	if (format == 's')
-		size_print += ft_printstring(va_arg(args, char *));
+		len_print += ft_printstr(va_arg(args, char *));
 	if (format == 'p')
-		size_print += ft_printpoint(va_arg(args, unsigned long long));
+		len_print += ft_printpoint(va_arg(args, unsigned long long));
 	if (format == 'i' || format == 'd')
-		size_print += ft_printnbr(va_arg(args, int));
+		len_print += ft_printnbr(va_arg(args, int));
 	if (format == 'u')
-		size_print += ft_printuns(va_arg(args, unsigned int));
+		len_print += ft_printunbr(va_arg(args, unsigned int));
 	if (format == 'f' || format == "fl")
-		size_print += ft_printfloat(va_arg(args, float));
+		len_print += ft_printfloat(va_arg(args, float));
 	if (format == 'x' || format == 'X')
-		size_print += ft_printhex(va_arg(args, unsigned int) format);
+		len_print += ft_printhex(va_arg(args, unsigned int) "0123456789abcef");
 	if (format == '%')
-		size_print += ft_printperc();
-	return (size_print);
+		len_print += ft_printperc();
+	return (len_print);
 }
 
 int	ft_printf(const char *str, ...)
@@ -48,19 +48,19 @@ int	ft_printf(const char *str, ...)
 	int		size_print;
 
 	i = 0;
-	size_print = 0;
+	len_print = 0;
 	va_start(args, str);
 	while (str[i])
 	{
 		if (str[i] == '%')
 		{
-			size_print += check_formats(args, str[i + 1]);
+			len_print += check_formats(args, str[i + 1]);
 			i++;
 		}
 		else
-			size_print += ft_printchar(str[i]);
+			len_print += ft_printchar(str[i]);
 		i++;
 	}
 	va_end(str);
-	return (size_print);
+	return (len_print);
 }
