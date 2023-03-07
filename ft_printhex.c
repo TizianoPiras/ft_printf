@@ -11,48 +11,47 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft/libft.h"
 
-int	len_pointer(unsigned long long p)
+int	len_hex(unsigned int n)
 {
 	int	i;
 
 	i = 0;
-	while (p != 0)
+	while (n != 0)
 	{
 		i++;
-		p = p / 16;
+		n = n / 16;
 	}
 	return (i);
 }
 
-void	ft_putpointer(unsigned long long p)
+void	ft_puthex(unsigned int nbr, const char format)
 {
-	if (p >= 16)
+	if (nbr >= 16)
 	{
-		ft_putpointer(p / 16);
-		ft_putpointer(p % 16);
+		ft_puthex(nbr / 16, format);
+		ft_puthex(nbr % 16, format);
 	}
 	else
 	{
-		if (p <= 9)
-			ft_putchar_fd((p + '0'), 1);
+		if (nbr <= 9)
+			ft_printchar(nbr + '0');
 		else
-			ft_putchar_fd((p - 10 + 'a'), 1);
+		{
+			if (format == 'x')
+				ft_printchar(nbr - 10 + 'a');
+			if (format == 'X')
+				ft_printchar(nbr - 10 + 'A');
+		}
 	}
 }
 
-int	ft_printpoint(unsigned long long ptr)
+int	ft_printhex(unsigned int nbr, const char format)
 {
-	int	len_print;
-
-	len_print = 0;
-	len_print += write(1, "0x", 2);
-	if (ptr == 0)
-		len_print += write(1, "0", 1);
+	if (nbr == 0)
+		return (write(1, "0", 1));
 	else
-	{
-		ft_putpointer(ptr);
-		len_print += len_pointer(ptr);
-	}
-	return (len_print);
+		ft_puthex(nbr, format);
+	return (len_hex(nbr));
 }

@@ -10,18 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include <unistd.h>
 #include <stdarg.h>
 
-int	ft_putchar(char c)
+int	ft_printchar(char c)
 {
-	write (1, c, 1);
+	write(1, &c, 1);
 	return (1);
 }
 
-int	check_formats(va_list args (const char format))
+int	check_formats(va_list args, const char format)
 {
-	int	len_print = 0;
+	int	len_print;
+
+	len_print = 0;
 	if (format == 'c')
 		len_print += ft_printchar(va_arg(args, int));
 	if (format == 's')
@@ -32,10 +35,8 @@ int	check_formats(va_list args (const char format))
 		len_print += ft_printnbr(va_arg(args, int));
 	if (format == 'u')
 		len_print += ft_printunbr(va_arg(args, unsigned int));
-	if (format == 'f' || format == "fl")
-		len_print += ft_printfloat(va_arg(args, float));
 	if (format == 'x' || format == 'X')
-		len_print += ft_printhex(va_arg(args, unsigned int) "0123456789abcef");
+		len_print += ft_printhex(va_arg(args, unsigned int), format);
 	if (format == '%')
 		len_print += ft_printperc();
 	return (len_print);
@@ -45,7 +46,7 @@ int	ft_printf(const char *str, ...)
 {
 	int		i;
 	va_list	args;
-	int		size_print;
+	int		len_print;
 
 	i = 0;
 	len_print = 0;
@@ -61,6 +62,6 @@ int	ft_printf(const char *str, ...)
 			len_print += ft_printchar(str[i]);
 		i++;
 	}
-	va_end(str);
+	va_end(args);
 	return (len_print);
 }

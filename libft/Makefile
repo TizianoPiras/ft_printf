@@ -6,13 +6,13 @@
 #    By: tpiras <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 13:43:33 by tpiras            #+#    #+#              #
-#    Updated: 2023/02/05 13:35:50 by tpiras           ###   ########.fr        #
+#    Updated: 2023/01/31 15:49:20 by tpiras           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-HEADER = $(NAME:.a=.h)
+HEADER = ${NAME:.a=.h}
 
 SOURCES = ft_isalpha.c \
 ft_isdigit.c \
@@ -49,19 +49,7 @@ ft_putstr_fd.c \
 ft_putendl_fd.c \
 ft_putnbr_fd.c \
 
-SOURCES_BONUS = ft_lstnew.c \
-ft_lstadd_front.c \
-ft_lstsize.c \
-ft_lstlast.c \
-ft_lstadd_back.c \
-ft_lstdelone.c \
-ft_lstclear.c \
-ft_lstiter.c \
-ft_lstmap.c \
-
-OBJECTS = $(SOURCES:.c=.o)
-
-OBJECTS_BONUS = $(SOURCES_BONUS:.c=.o)
+OBJECTS = ${SOURCES:.c=.o}
 
 LIBC = ar rcs
 
@@ -72,22 +60,18 @@ RM = rm -f
 CFLAGS = -Wall -Werror -Wextra
 
 .o:.c
-		$(CC) $(CFLAGS) $(OBJECTS) $< -o $(<:.c=.o)
+		@${CC} ${CFLAGS} ${OBJECTS} $< -o ${<:.c=.o}
 
-${NAME}: $(OBJECTS)
-		$(LIBC) $(NAME) $(OBJECTS)
-		ranlib $(NAME)
+${NAME}: ${OBJECTS}
+		@${LIBC} ${NAME} ${OBJECTS}
+		@ranlib ${NAME}
 
-all: $(NAME)
+all: ${NAME}
 
 clean:
-		$(RM) $(OBJECTS)
+		@${RM} ${OBJECTS}
 
 fclean: clean
-		$(RM) $(NAME)
+		@${RM} ${NAME}
 
 re: fclean all
-
-bonus: $(OBJECTS) $(OBJECTS_BONUS)
-	$(LIBC) $(NAME) $(OBJECTS) $(OBJECTS_BONUS)
-	ranlib $(NAME)

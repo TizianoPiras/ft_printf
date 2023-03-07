@@ -11,11 +11,12 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft/libft.h"
 
 void	ft_putstr(char *str)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i])
 	{
@@ -42,19 +43,19 @@ int	ft_printstr(char *str)
 	return (i);
 }
 
-int	ft_printnbr(int	n)
+int	ft_printnbr(int n)
 {
-	int	i;
-	char *nbr;
+	int		i;
+	char	*nbr;
 
 	i = 0;
 	nbr = ft_itoa(n);
 	i = ft_printstr(nbr);
 	free(nbr);
-	return(i);
+	return (i);
 }
 
-int ft_printperc(void)
+int	ft_printperc(void)
 {
 	write (1, "%", 1);
 	return (1);

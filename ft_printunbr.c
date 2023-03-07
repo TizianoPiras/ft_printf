@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		unbr_len(unsigned int n)
+int	unbr_len(unsigned int n)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ int		unbr_len(unsigned int n)
 		i++;
 		n = n / 10;
 	}
-	return (n);
+	return (i);
 }
 
 char	*ft_unitoa(unsigned int n)
@@ -42,16 +42,17 @@ char	*ft_unitoa(unsigned int n)
 		n = n / 10;
 		len--;
 	}
-	return(nbr);
+	return (nbr);
 }
 
-int		ft_printunbr(unsigned int n)
+int	ft_printunbr(unsigned int n)
 {
 	int		len_print;
 	char	*nbr;
+
 	len_print = 0;
 	if (n == 0)
-		len_print += write(1, '0', 1);
+		len_print += write(1, "0", 1);
 	else
 	{
 		nbr = ft_unitoa(n);
@@ -60,4 +61,3 @@ int		ft_printunbr(unsigned int n)
 	}
 	return (len_print);
 }
-
